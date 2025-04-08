@@ -1,4 +1,4 @@
-#!/Users/jelinta-01/Desktop/工作相关/filetest/.venv/bin/python
+#!/Users/jelinta-01/Desktop/工作相关/filetest/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
