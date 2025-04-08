@@ -6,8 +6,6 @@ import string
 import traceback
 from PIL import Image
 import io
-from moviepy.editor import VideoFileClip, ColorClip
-import numpy as np
 
 app = Flask(__name__, static_folder='.')
 CORS(app)
@@ -26,55 +24,8 @@ def create_random_file(size_bytes, file_format, file_index):
     # 将文件格式转换为小写以统一处理
     file_format = file_format.lower()
     
-    # 处理视频格式的特殊情况
-    if file_format in ['mp4', 'avi', 'mov', 'flv', 'wmv']:
-        try:
-            # 创建一个简单的视频文件
-            duration = 5  # 5秒视频
-            width, height = 640, 480
-            fps = 30
-            
-            # 创建一个彩色背景的视频片段
-            color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-            clip = ColorClip(size=(width, height), color=color, duration=duration)
-            
-            # 使用绝对路径
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            output_dir = os.path.join(current_dir, 'generated_files')
-            os.makedirs(output_dir, exist_ok=True)
-            
-            # 临时文件路径
-            temp_path = os.path.join(output_dir, f"temp_{file_index}.mp4")
-            final_path = os.path.join(output_dir, f"generated_file_{file_index}.{file_format}")
-            
-            # 先保存为 MP4
-            clip.write_videofile(temp_path, fps=fps, codec='libx264', audio=False)
-            
-            # 如果目标格式不是 MP4，需要转换
-            if file_format != 'mp4':
-                video = VideoFileClip(temp_path)
-                video.write_videofile(final_path, fps=fps, codec='libx264', audio=False)
-                video.close()
-                os.remove(temp_path)  # 删除临时文件
-            else:
-                os.rename(temp_path, final_path)
-            
-            # 检查文件大小并调整
-            current_size = os.path.getsize(final_path)
-            if current_size > size_bytes:
-                # 如果文件太大，我们需要降低质量重新生成
-                clip = ColorClip(size=(width//2, height//2), color=color, duration=duration)
-                clip.write_videofile(final_path, fps=fps//2, codec='libx264', audio=False)
-            
-            clip.close()
-            return True, f"generated_file_{file_index}.{file_format}"
-            
-        except Exception as e:
-            print(f"Error creating video file: {str(e)}")
-            return False, str(e)
-    
     # 处理图片格式的特殊情况
-    elif file_format in ['jpg', 'jpeg', 'png', 'gif', 'webp']:
+    if file_format in ['jpg', 'jpeg', 'png', 'gif', 'webp']:
         # 对于图片格式，我们需要创建有效的图片文件
         # 创建一个随机颜色的图片
         width = 800
