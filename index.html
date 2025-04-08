@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件生成系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>文件生成系统</h1>
+        
+        <div class="input-group">
+            <label for="fileSize">文件大小：</label>
+            <input type="number" id="fileSize" min="1" required>
+            <select id="sizeUnit">
+                <option value="B">B</option>
+                <option value="KB">KB</option>
+                <option value="MB">MB</option>
+                <option value="GB">GB</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="fileFormat">文件格式：</label>
+            <select id="fileFormat">
+                <option value="txt">.txt</option>
+                <option value="pdf">.pdf</option>
+                <option value="jpg">.jpg</option>
+                <option value="jpeg">.jpeg</option>
+                <option value="png">.png</option>
+                <option value="gif">.gif</option>
+                <option value="webp">.webp</option>
+                <option value="mp4">.mp4</option>
+                <option value="avi">.avi</option>
+                <option value="mov">.mov</option>
+                <option value="flv">.flv</option>
+                <option value="wmv">.wmv</option>
+                <option value="doc">.doc</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="fileCount">文件数量：</label>
+            <input type="number" id="fileCount" min="1" value="1" required>
+        </div>
+
+        <button id="generateBtn">生成文件</button>
+
+        <div id="feedback" class="feedback"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
